@@ -2,6 +2,7 @@ const express=require('express') ;
 const engine=require('ejs-locals') ;
 const path=require('path') ;
 const Request=require('request');
+const http=require('http');
 
 const app=express() ;
 const bodyParser=require('body-parser');
@@ -11,10 +12,13 @@ app.engine('ejs',engine) ;
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-
+const server=http.Server(app);
 
 app.get('/',(req,res)=>{
     res.render('home');
+    // Request.get('https://saksham-github-api.herokuapp.com',(err,ress,body)=>{
+    //     console.log((body));
+    // });
 });
 
 
@@ -46,7 +50,7 @@ app.post('/find',urlencodedParser,(reqq,ress)=>{
 
 
 
-app.listen(process.env.PORT || 7500,()=>{
+app.listen(process.env.PORT || 7500,'0.0.0.0',()=>{
     //console.log(app.get('views'))
     
     console.log(`Express running→PORT 7500`);
